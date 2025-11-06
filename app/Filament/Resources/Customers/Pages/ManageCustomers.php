@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Customers\Pages;
 use App\Filament\Resources\Customers\CustomerResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
+use Filament\Support\Icons\Heroicon;
 
 class ManageCustomers extends ManageRecords
 {
@@ -13,7 +14,9 @@ class ManageCustomers extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Buat Customer')
+                ->icon(Heroicon::Plus),
         ];
     }
 }

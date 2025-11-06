@@ -14,7 +14,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
 
     {{-- Navbar --}}
     <nav class="bg-white shadow-md py-4 px-12 flex justify-between items-center">

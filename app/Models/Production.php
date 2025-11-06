@@ -11,6 +11,7 @@ class Production extends Model
         'production_code',
         'product_name',
         'description',
+        'quantity_product',
         'start_date',
         'estimated_end_date',
         'status',

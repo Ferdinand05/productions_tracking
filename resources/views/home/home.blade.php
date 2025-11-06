@@ -11,10 +11,14 @@
     </section>
 
     {{-- Komponen Livewire Check Production --}}
-    <section class="py-10 bg-white">
-        <div class="max-w-2xl mx-auto">
-            @livewire('check-production')
+    <section class="py-10  bg-gray-50 rounded-md mt-2.5">
+        <div class=" max-w-5xl mx-auto">
+            <livewire:check-production>
         </div>
     </section>
+
+
+
+
 
 </x-app-layout>

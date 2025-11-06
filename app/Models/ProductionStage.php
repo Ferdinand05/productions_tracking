@@ -13,7 +13,6 @@ class ProductionStage extends Model
         'start_date',
         'end_date',
         'status',
-        'note',
     ];
 
     public function production()
