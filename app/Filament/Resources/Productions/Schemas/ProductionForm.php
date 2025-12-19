@@ -45,12 +45,6 @@ class ProductionForm
                             ->required()
                             ->placeholder('Contoh : Mukena')
                             ->string(),
-                        TextInput::make('quantity_product')
-                            ->label('Jumlah Produk')
-                            ->helperText('Estimasi Jumlah Produk Jadi')
-                            ->required()
-                            ->suffix('Pcs')
-                            ->numeric(),
 
                         DatePicker::make('start_date')
                             ->label('Tgl. Mulai Produksi')
@@ -78,8 +72,8 @@ class ProductionForm
                     ->schema([
                         Grid::make()
                             ->columns([
-                                'sm' => 1,
-                                'xl' => 4
+                                'sm' => 2,
+                                'xl' => 5
                             ])
                             ->schema([
                                 TextInput::make('material_name')
@@ -94,6 +88,11 @@ class ProductionForm
                                     ->label('Satuan')
                                     ->placeholder('Contoh : pcs,roll,meter')
                                     ->required(),
+                                TextInput::make('supplier')
+                                    ->label('Supplier')
+                                    ->placeholder('Contoh : Toko Bahan XYZ')
+                                    ->nullable()
+                                    ->helperText('Opsional'),
                                 TextInput::make('note')
                                     ->label('Catatan')
                                     ->helperText('Opsional')

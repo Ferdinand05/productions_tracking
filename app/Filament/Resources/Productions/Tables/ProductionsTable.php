@@ -22,13 +22,23 @@ class ProductionsTable
     {
         return $table
             ->columns([
+
+                TextColumn::make('production_code')
+                    ->label("Kode")
+                    ->copyable()
+                    ->searchable(),
                 TextColumn::make('customer.name')
                     ->label('Nama Customer')
+                    ->copyable()
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('product_name')
                     ->label('Produk')
                     ->searchable(),
+                TextColumn::make('quantity_product')
+                    ->label('Jumlah Produk')
+                    ->suffix(' Pcs')
+                    ->sortable(),
                 TextColumn::make('description')
                     ->label('Deskripsi'),
                 TextColumn::make('start_date')
@@ -49,6 +59,7 @@ class ProductionsTable
                         'completed' => 'success',
                     })
             ])
+            ->recordUrl(null)
             ->filters([
                 SelectFilter::make('customer_filter')
                     ->relationship('customer', 'name')
@@ -56,6 +67,7 @@ class ProductionsTable
             ])
             ->recordActions([
                 EditAction::make(),
+                // open modal to show production stages
                 Action::make('detail_tahap')
                     ->label('Tahap Produksi')
                     ->icon('heroicon-o-arrow-path')
@@ -69,6 +81,7 @@ class ProductionsTable
                     ->closeModalByEscaping(true)
                     ->modalSubmitAction(false)
                     ->modalCancelActionLabel('Tutup'),
+                // open modal to show production materials
                 Action::make('detail_bahan')
                     ->label('Bahan')
                     ->icon('heroicon-o-cube')

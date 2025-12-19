@@ -22,7 +22,8 @@
                         <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">
                             {{ $item->production_code }}</td>
                         <td class="px-4 py-3">{{ $item->product_name }}</td>
-                        <td class="px-4 py-3 text-center">{{ $item->quantity_product }}</td>
+                        <td class="px-4 py-3 text-center">
+                            {{ $item->quantity_product ? $item->quantity_product . ' pcs' : '-' }}</td>
                         <td class="px-4 py-3">{{ $item?->description ?? '-' }}</td>
                         <td class="px-4 py-3 text-center">
                             {{ \Carbon\Carbon::parse($item->start_date)->format('d M Y') }}</td>
@@ -61,7 +62,7 @@
 
                                         </span>
                                         <span>
-                                            Tahap
+                                            Tahapan
                                         </span>
 
                                     </div>

@@ -38,6 +38,7 @@ class ProductionStageManager extends Component
         $this->dispatch('stage-updated');
     }
 
+    public $modalQuantityProduct = false;
     public function completeStage($id)
     {
         $stage = ProductionStage::findOrFail($id);
@@ -52,12 +53,26 @@ class ProductionStageManager extends Component
         $allDone = $production->stages()->where('status', '!=', 'done')->doesntExist();
 
         if ($allDone) {
+
             $production->update(['status' => 'completed']);
+            $this->modalQuantityProduct = true;
         }
 
         $this->dispatch('stage-updated');
     }
 
+
+    // save product quantity
+    public $quantityProduct;
+    public function saveQuantityProduct()
+    {
+        $production = $this->record;
+        $production->update(['quantity_product' => $this->quantityProduct]);
+        $this->modalQuantityProduct = false;
+
+
+        $this->dispatch('stage-updated');
+    }
 
     #[On('stage-updated')]
     public function stageUpdated()

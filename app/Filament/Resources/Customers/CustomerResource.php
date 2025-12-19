@@ -30,6 +30,7 @@ class CustomerResource extends Resource
             ->components([
                 TextInput::make('customer_code')
                     ->hiddenOn('edit')
+                    ->copyable()
                     ->default(function () {
                         $kode = "CST" . strtoupper(Str::random(6));
                         return $kode;
@@ -49,7 +50,8 @@ class CustomerResource extends Resource
                 TextInput::make('note')
                     ->string()
                     ->nullable(),
-            ]);
+            ])
+            ->record(null);
     }
 
     public static function table(Table $table): Table
@@ -57,14 +59,22 @@ class CustomerResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('customer_code')
-                    ->label('Kode Customer'),
+                    ->label('Kode Customer')
+                    ->copyable()
+                    ->searchable()
+                    ->sortable(),
 
                 TextColumn::make('name')
-                    ->label('Nama'),
+                    ->label('Nama')
+                    ->searchable()
+                    ->sortable()
+                    ->copyable(),
                 TextColumn::make('phone')
-                    ->label('Telepon'),
+                    ->label('Telepon')
+                    ->copyable(),
                 TextColumn::make('address')
-                    ->label('Alamat'),
+                    ->label('Alamat')
+                    ->copyable(),
                 TextColumn::make('note')
                     ->label('Catatan'),
             ])
@@ -79,7 +89,8 @@ class CustomerResource extends Resource
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->recordUrl(null);
     }
 
     public static function getPages(): array

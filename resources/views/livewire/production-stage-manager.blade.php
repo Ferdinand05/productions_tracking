@@ -1,5 +1,3 @@
-
-
 <section class="p-4 space-y-4">
     <h2 class="text-lg font-semibold text-gray-800">
         Daftar Tahap Produksi
@@ -44,20 +42,18 @@
                     <td class="p-3 border text-center space-x-1">
                         {{-- Tombol Aksi Berdasarkan Status --}}
                         @if ($stage->status === 'pending')
-                            <button
-                                wire:click.prevent="startStage({{ $stage->id }})"
+                            <button wire:click.prevent="startStage({{ $stage->id }})"
                                 class="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition">
                                 Mulai
                             </button>
                         @elseif ($stage->status === 'in_progress')
-                            <button
-                                wire:click.prevent="completeStage({{ $stage->id }})"
+                            <button wire:click.prevent="completeStage({{ $stage->id }})"
                                 class="px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition">
                                 Selesai
                             </button>
                         @endif
 
-                        
+
                     </td>
                 </tr>
             @endforeach
@@ -69,5 +65,24 @@
             Belum ada tahap produksi.
         </div>
     @endif
-</section>
 
+    {{-- modal --}}
+    <div wire:show="modalQuantityProduct" x-data="{ modalQuantityProduct: @entangle('modalQuantityProduct') }" x-show="modalQuantityProduct"
+        class="fixed inset-0 bg-gray-900/45 z-50 flex items-center justify-center  transition duration-300">
+        <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6 transform transition-all duration-300">
+            <form wire:submit.prevent="saveQuantityProduct">
+                <h3 class="text-lg font-semibold mb-4">Masukkan Jumlah Produk Jadi</h3>
+                <input type="number" wire:model="quantityProduct"
+                    class="w-full border border-gray-300 rounded px-3 py-2 mb-4" placeholder="Jumlah Produk Jadi">
+                <div class="flex justify-end space-x-2">
+
+                    <button type="submit"
+                        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
