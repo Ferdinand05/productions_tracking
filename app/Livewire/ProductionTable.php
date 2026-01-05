@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Customer;
 use App\Models\Production;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 
 class ProductionTable extends Component
@@ -40,5 +41,22 @@ class ProductionTable extends Component
             ->where('production_code', $productionCode)
             ->first();
         $this->materials = $this->selectedProduction->materials;
+    }
+
+    public function downloadPdf($productionCode)
+    {
+        $this->selectedProduction = Production::with('customer', 'materials', 'stages')
+            ->where('production_code', $productionCode)
+            ->first();
+
+        $pdf = Pdf::loadView('pdf.detail-production', ["production" => $this->selectedProduction])
+            ->setPaper('a4');
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                echo $pdf->output();
+            },
+            "produksi-{$productionCode}.pdf"
+        );
     }
 }

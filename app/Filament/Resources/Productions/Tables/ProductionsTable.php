@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Productions\Tables;
 
 use App\Models\Production;
 use App\Models\ProductionStage;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Faker\Core\Color;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -64,6 +65,27 @@ class ProductionsTable
                 SelectFilter::make('customer_filter')
                     ->relationship('customer', 'name')
 
+            ])
+            ->headerActions([
+                Action::make('printPdf')
+                    ->label('Cetak Laporan PDF')
+                    ->icon('heroicon-o-printer')
+                    ->color('gray')
+                    ->extraAttributes([
+                        'class' => 'mt-2 w-full'
+                    ])
+                    ->action(function () {
+                        $productions = Production::with(['customer', 'materials', 'stages'])->get();
+
+                        $pdf = Pdf::loadView('pdf.production-report', [
+                            'productions' => $productions,
+                        ])->setPaper('a4', 'portrait');
+
+                        return response()->streamDownload(
+                            fn() => print($pdf->output()),
+                            'laporan-produksi.pdf'
+                        );
+                    }),
             ])
             ->recordActions([
                 EditAction::make(),
